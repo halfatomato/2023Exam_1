@@ -1,0 +1,71 @@
+# 项目排除路径
+/cmake-build-debug/
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Ignore build artifacts
+build/
+bin/
+
+# Ignore Google Test related files
+gtest/
+gtest-all.cc
+gtest_main.cc
+
+# Ignore test output files
+test_output/
+*.xml
+
+# Ignore Visual Studio Code related files
+.vscode/
+
+# Ignore CMake related files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore IDE-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.sdf
+*.opensdf
+
+# Ignore generated files
+*.orig
+
+# Ignore macOS system files
+.DS_Store
