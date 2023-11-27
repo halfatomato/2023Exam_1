@@ -8,60 +8,23 @@
 #include <algorithm>
 class int_array_list {
 public:
-  int_array_list() : int_array_list(2) {}
+  //默认构造函数
+  int_array_list() = default;
 
-  explicit int_array_list(int capacity) {
-    this->capacity = capacity;
-    data = new int[capacity]{0};
-    size = 0;
-  }
+  //返回数组元素数量
+  int get_size();
 
-  void set_capacity(int value) {
-    int *new_data = new int[value]{0};
-    size = std::min(size, value);
-    for (int i = 0; i < size; i++) {
-      new_data[i] = data[i];
-    }
-    delete[] data;
-    data = new_data;
-    this->capacity = value;
-  }
+  //向数组尾添加元素
+  void add(int value);
 
-  int get_size() { return size; }
+  //移除数组中指定位置的元素，并将后面的元素向前移动
+  void removeAt(int index);
 
-  void add(int value) {
-    if (size == capacity) {
-      set_capacity(capacity << 1);
-    }
-    data[size] = value;
-    size++;
-  }
+  //删除第一个出现的指定元素（如果存在），并将后面的元素向前移动
+  void remove(int value);
 
-  void removeAt(int index) {
-    for (int i = index; i < size - 1; i++) {
-      data[i] = data[i + 1];
-    }
-    size--;
-    if (size <= capacity >> 2) {
-      set_capacity(capacity >> 2);
-    }
-  }
-
-  void remove(int value) {
-    for (int i = 0; i < size; i++) {
-      if (data[i] == value) {
-        removeAt(i);
-        break;
-      }
-    }
-  }
-
-  int get(int index) { return data[index]; }
-
-private:
-  int capacity;
-  int size;
-  int *data;
+  //返回数组中指定位置的元素
+  int get(int index);
 };
 
 #endif // CPPARRAYLIST__INT_ARRAY_LIST_H_
