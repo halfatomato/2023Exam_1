@@ -1,0 +1,95 @@
+/**
+ *
+ * ArrayList  c语言实现
+ *
+ *
+ * */
+
+
+#include<stdlib.h>
+#define MAX_SIZE 1000
+
+typedef char Element;
+typedef struct squence{
+    Element *items;
+    int listlen;
+    int len;
+} sq;
+
+//初始化表
+void init(sq *l){
+    //分配内存空间
+    l->items= (Element *)malloc(MAX_SIZE * sizeof(Element));
+    if(!l->items) exit(0);
+    l->len=0;
+    l->listlen=MAX_SIZE;
+}
+
+//插入元素(往指定位置i插入元素) 
+void insertElem(sq *l,int i,Element e){
+    Element *base,*insertPtr,*p;
+    if(i<1 || i>l->len+1){
+        exit(0);
+    }
+
+    if(l->len>=l->listlen){
+        //扩展空间
+        base = (Element *)realloc(l->items,(l->listlen+10)*sizeof(Element));
+        l->items=base;
+        l->listlen=l->listlen+10;
+    }
+
+    insertPtr=&(l->items[i-1]);
+    for(p=&(l->items[l->len-1]);p>=insertPtr;p--){
+            *(p+1)=*p;
+    }
+
+    *insertPtr=e;
+    l->len++;
+}
+ //向数组尾添加元素
+  void  add (sq*l, int value) {
+    if (l->len == l->listlen) {
+        l->listlen *= 2;  // 扩大数组容量为原来的两倍
+        l->items = (Element*)realloc(l->items, l->listlen * sizeof(int));
+    }
+    l->items[l->len++] = value;
+}
+// 返回数组元素数量
+ int get_size(sq*l){
+ 	return l->len;
+ }
+ 
+//移除数组中指定位置的元素，并将后面的元素向前移动
+  void removeAt(sq*l,int index){
+  	Element *delElem,*q;
+    if(index<1 || index>l->len)exit(0);
+    delElem=&(l->items[index-1]);
+    q=l->items+l->len-1;
+    //往前推移
+    for(++delElem;delElem<=q;++delElem){
+        *(delElem-1)=*delElem;
+    }
+    l->len--;
+  }
+
+//删除第一个出现的指定元素（如果存在），并将后面的元素向前移动
+int remove(sq*l, int value) {
+    int index = 0;
+    while (index <l->len && l->items[index] != value) {  // 查找元素在数组中的位置    
+        index++;
+    }
+    if (index == l->len) {
+       
+        return -1;
+    }
+    else {  // 如果找到该元素，通过removeAt函数将其移除    
+        removeAt(l, index);
+        l->len--;  // 更新数组的大小  
+        return 0;
+    }
+}
+//返回数组中指定位置的元素
+  int get(sq*l,int index){
+  	return l->items[index];
+  }
